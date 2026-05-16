@@ -1,5 +1,8 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from database import init_db
 from models.system import AISystem, Obligation, ValidationStep, AuditLog  # noqa: F401 — ensure models are registered
@@ -8,7 +11,7 @@ from routers import registry, classifier, validation, obligations, validation_st
 app = FastAPI(
     title="GxP-Gov API",
     description="AI Governance-as-a-Service for Regulated Pharma & Life Sciences",
-    version="0.1.0",
+    version="0.1.5",
 )
 
 app.add_middleware(
@@ -36,4 +39,9 @@ def startup():
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "version": "0.1.0"}
+    return {"status": "ok", "version": "0.1.5"}
+
+# Serve frontend static files (for production deployment)
+static_dir = Path(__file__).parent / "static"
+if static_dir.is_dir():
+    app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="frontend")
