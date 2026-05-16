@@ -3,7 +3,6 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 
 from database import init_db
 from models.system import AISystem, Obligation, ValidationStep, AuditLog  # noqa: F401 — ensure models are registered
@@ -45,10 +44,7 @@ def health():
 # Serve frontend static files (for production deployment)
 static_dir = Path(__file__).parent / "static"
 if static_dir.is_dir():
-    # Mount static assets (js, css) — mounts are checked before routes
-    app.mount("/assets", StaticFiles(directory=str(static_dir / "assets")), name="static-assets")
 
-    # SPA catch-all: serve real files if they exist, otherwise index.html
     @app.get("/{path:path}")
     async def spa_fallback(request: Request, path: str):
         file_path = static_dir / path
