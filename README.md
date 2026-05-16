@@ -27,30 +27,30 @@ When EMA asks if your AI is validated and compliant, GxP-Gov means the answer is
 ```
 ┌───────────────────────────────────────────────────────────┐
 │                React + Recharts Frontend                  │
-│  Registry | Risk Classifier | Validation Tracker         │
+│  Registry | Risk Classifier | Validation Tracker          │
 └───────────────────────┬───────────────────────────────────┘
                         │ REST API
 ┌───────────────────────▼───────────────────────────────────┐
-│                    FastAPI Backend                          │
-│  ┌──────────┐  ┌──────────┐  ┌─────────────┐             │
-│  │ Registry  │  │ Classifier│  │  Validation │             │
-│  │  CRUD     │  │ + Apply   │  │  Tracker    │             │
-│  └─────┬────┘  └────┬─────┘  └──────┬──────┘             │
-│        └─────────────┼──────────────┘                    │
-│  ┌──────────┐  ┌─────┴──────┐  ┌──────────────┐          │
-│  │Obligations│  │Validation  │  │   Change     │          │
-│  │ Manager   │  │Steps Mgr  │  │   Control    │          │
-│  └──────────┘  └────────────┘  └──────────────┘          │
+│                    FastAPI Backend                        │
+│  ┌──────────┐  ┌──────────┐  ┌─────────────┐              │
+│  │ Registry │  │Classifier│  │  Validation │              │
+│  │  CRUD    │  │ + Apply  │  │  Tracker    │              │
+│  └─────┬────┘  └─────┬────┘  └──────┬──────┘              │
+│        └─────────────┼──────────────┘                     │
+│  ┌──────────┐  ┌─────┴──────┐  ┌──────────────┐           │
+│  │Obligation│  │Validation  │  │   Change     │           │
+│  │ Manager  │  │Steps Mgr   │  │   Control    │           │
+│  └──────────┘  └────────────┘  └──────────────┘           │
 │  ┌──────────────────────────────────────────────┐         │
-│  │  EU AI Act Rules + EMA Guidance + GMLP Steps  │         │
+│  │  EU AI Act Rules + EMA Guidance + GMLP Steps │         │
 │  └──────────────────────────────────────────────┘         │
 └───────────────────────┬───────────────────────────────────┘
                         │
 ┌───────────────────────▼───────────────────────────────────┐
-│                     SQLite DB                              │
-│  ai_systems | obligations | validation_steps | audit_log   │
-│  (21 seeded demo systems + 129 obligations + 237 steps)    │
-└───────────────────────────────────────────────────┘
+│                     SQLite DB                             │
+│  ai_systems | obligations | validation_steps | audit_log  │
+│  (21 seeded demo systems + 129 obligations + 237 steps)   │
+└───────────────────────────────────────────────────────────┘
 ```
 
 ## Real Data Sources
