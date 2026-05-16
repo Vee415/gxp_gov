@@ -45,13 +45,13 @@ def health():
 # Serve frontend static files (for production deployment)
 static_dir = Path(__file__).parent / "static"
 if static_dir.is_dir():
-    # SPA catch-all: serve index.html for any non-API, non-static path
+    # Mount static assets (js, css) — mounts are checked before routes
+    app.mount("/assets", StaticFiles(directory=str(static_dir / "assets")), name="static-assets")
+
+    # SPA catch-all: serve real files if they exist, otherwise index.html
     @app.get("/{path:path}")
     async def spa_fallback(request: Request, path: str):
         file_path = static_dir / path
         if file_path.is_file():
             return FileResponse(file_path)
         return FileResponse(static_dir / "index.html")
-
-    # Mount static assets (js, css, images)
-    app.mount("/assets", StaticFiles(directory=str(static_dir / "assets")), name="static-assets")
